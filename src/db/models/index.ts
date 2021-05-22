@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { Credential } from '../../interfaces/db';
+import { Credential } from '../../interfaces';
 
 const env = process.env.NODE_ENV || 'development';
 import dbConfig from'../config/index';
