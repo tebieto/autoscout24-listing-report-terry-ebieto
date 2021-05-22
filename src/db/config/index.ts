@@ -1,4 +1,4 @@
-import { Credential, Credentials } from '../../interfaces/db';
+import { Credential, Credentials } from '../../interfaces';
 
 const cred: Credential = {
 	'username':  process.env.DB_USERNAME || '',

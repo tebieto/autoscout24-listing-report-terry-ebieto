@@ -16,15 +16,15 @@ export const routes = express.Router();
 
  
 /**
- * Get report by report id
+ * Get report by report uuid
  * I made an assumption that it is good to keep an history of generated reports
  * Therefore I keep a record of every pair of listings.cv and contacts.cv uploaded
  * By storing them in a seperate table and then adding 
  * the report_id as a foreign key for each recored stored during the data extraction from csv
  */
 
-routes.get('/report/:id', async (req: Request, res: Response) => {
-	const id: number = parseInt(req.params.id, 10);
+routes.get('/report/:uuid', async (req: Request, res: Response) => {
+	const uuid: number = parseInt(req.params.uuid, 10);
   
 	try {
 		// const item: Item = await ItemService.find(id);
@@ -33,8 +33,8 @@ routes.get('/report/:id', async (req: Request, res: Response) => {
 		// 	return res.status(200).send(item);
 		// }
 
-		if(id) {
-			return res.status(200).send(`${id}`);
+		if(uuid) {
+			return res.status(200).send(`${uuid}`);
 		}
   
 		res.status(404).send('item not found');

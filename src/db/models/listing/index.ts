@@ -2,7 +2,7 @@
 import { DataTypes, Model, } from 'sequelize';
 import { ListingAttributes } from '../../../interfaces/listing';
 import { sequelize } from '../index';
-
+import {  v4 as uuid } from 'uuid';
 /**
  * Creating List Model which is passed to sequelize
  * And persisted to database
@@ -18,12 +18,28 @@ interface ListingModel
 const Listing = sequelize.define<ListingModel>(
 	'Listing',
 	{
-		id: {
+		uuid: {
 			allowNull: false,
 			autoIncrement: false,
 			primaryKey: true,
 			type: DataTypes.UUID,
 			unique: true,
+		},
+
+		id: {
+			allowNull: false,
+			autoIncrement: false,
+			primaryKey: true,
+			type: DataTypes.INTEGER,
+			unique: true,
+		},
+		report_uuid: {
+			allowNull: false,
+			type: DataTypes.UUID,
+			references: {
+				model: 'Report',
+				key: 'uuid'
+			}
 		},
 		make: {
 			allowNull: false,
@@ -44,5 +60,9 @@ const Listing = sequelize.define<ListingModel>(
 
 	}
 );
+
+Listing.beforeCreate(async (listing) => {
+	listing.uuid = await uuid();
+});
 
 export default Listing;
