@@ -1,7 +1,7 @@
-export interface Listing {
+export interface ListingAttributes {
     id: number;
     make: string;
     price: number;
     mileage: number;
-    seller_type: Date;
+    seller_type: string;
 }

@@ -34,7 +34,7 @@ app.use(express.json());
  * I usually prefer REST APIs for file uploads and GraphQL for other forms of Query or Mutations 
  */
 app.use('/api', routes);
-graphQLServer.applyMiddleware({ app });
+//graphQLServer.applyMiddleware({ app });
 
 
 app.get('/', (req, res) => {
