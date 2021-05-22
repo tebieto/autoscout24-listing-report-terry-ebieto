@@ -9,7 +9,11 @@ import compression from 'compression';
 
 import { routes } from './router';
 import * as dotenv from 'dotenv';
-import graphQLServer from './graphql';
+import { sequelize } from './db/models';
+import Contact from './db/models/contact';
+import Listing from './db/models/listing';
+import Report from './db/models/report';
+//import graphQLServer from './graphql';
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
@@ -40,6 +44,18 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
 	res.send('Working perfectly alright!');
 });
+
+if(process.env.SYNC === 'yes') {
+	(async () => {
+		try {
+			await Report.sync({ force: true });
+			await Contact.sync({ force: true });
+			await Listing.sync({ force: true });
+		} catch(error) {
+			console.log(error);
+		}
+	})();
+}
 
 /**
  * Server Activation

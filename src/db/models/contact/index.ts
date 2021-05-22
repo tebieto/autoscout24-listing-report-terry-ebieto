@@ -32,7 +32,7 @@ const Contact = sequelize.define<ContactModel>(
 			allowNull: false,
 			type: DataTypes.UUID,
 			references: {
-				model: 'Report',
+				model: 'Reports',
 				key: 'uuid'
 			}
 		},

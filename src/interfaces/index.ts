@@ -1,9 +1,10 @@
 import { Options } from 'sequelize/types';
 
 export interface Credential {
-	database: string,
-	username:  string
-	password:  string,
+	database: string;
+	username:  string;
+	password:  string;
+    dialect: string;
 	options: Options
 }
 

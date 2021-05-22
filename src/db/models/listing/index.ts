@@ -37,7 +37,7 @@ const Listing = sequelize.define<ListingModel>(
 			allowNull: false,
 			type: DataTypes.UUID,
 			references: {
-				model: 'Report',
+				model: 'Reports',
 				key: 'uuid'
 			}
 		},
