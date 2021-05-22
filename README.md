@@ -20,6 +20,7 @@ And generates four reports including
 * Backend: Express
 * Frontend: React
 * Test: Jest
+* Linter: Eslint
 * Database: Postgres
 * ORM: Sequelize
 * Container: Docker
