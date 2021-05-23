@@ -1,10 +1,10 @@
 import React from 'react';
 import { HeaderContainer } from './header.styles';
 
-const Header = () => {
-    return (
-    <HeaderContainer>
+const Header = () => (
+	<HeaderContainer>
+		<h1>Report</h1>
+  </HeaderContainer>
+);
 
-    </HeaderContainer>
-    )
-};
+export default Header;
