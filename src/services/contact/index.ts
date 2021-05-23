@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as fs from 'fs';
 import * as csv from 'fast-csv';
-import { csvUploadPath, getAbsolutePath } from '../../utils';
 import { ContactAttributes } from '../../interfaces/contact';
+import { csvUploadPath, getAbsolutePath } from '../../utils';
 
 export const uploadContactList = (req: Request, res: Response):void => {
 	try {
