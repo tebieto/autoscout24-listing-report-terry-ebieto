@@ -11,7 +11,7 @@ docker-compose.yml
 /coverage
 
 # production
-/build
+build
 
 # misc
 .DS_Store
