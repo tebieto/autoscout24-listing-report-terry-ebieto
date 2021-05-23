@@ -4,8 +4,8 @@
  */
 
 export interface ContactAttributes {
-    uuid: string;
+    uuid?: string;
     listing_id: number;
     contact_date: Date;
-    report_uuid: string
+    report_uuid?: string
 }
