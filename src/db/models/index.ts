@@ -6,6 +6,6 @@ import dbConfig from'../config/index';
 
 const config: Credential = dbConfig[env];
 
-const  sequelize = new Sequelize(config.database, config.username, config.password, config);
+const  sequelize = new Sequelize(config.database, config.username, config.password, config.options);
 
 export { Sequelize, sequelize };
