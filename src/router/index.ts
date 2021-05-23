@@ -3,12 +3,12 @@
  */
 
 import express, { Request, Response } from 'express';
-
+import { uploadCSV } from '../middleware/upload';
 /**
  * Router Definition
  */
 
-export const routes = express.Router();
+export const route = express.Router();
 
 /**
  * Controller Definitions
@@ -23,7 +23,7 @@ export const routes = express.Router();
  * the report_id as a foreign key for each recored stored during the data extraction from csv
  */
 
-routes.get('/report/:uuid', async (req: Request, res: Response) => {
+route.get('/report/:uuid', async (req: Request, res: Response) => {
 	const uuid: number = parseInt(req.params.uuid, 10);
   
 	try {
@@ -44,14 +44,4 @@ routes.get('/report/:uuid', async (req: Request, res: Response) => {
 });
 
 // Extract data from CSV endpoint - POST METHOD
-routes.post('/extract/data/csv', async (req: Request, res: Response) => {
-	try {
-		// const item: BaseItem = req.body;
-  
-		// const newItem = await ItemService.create(item);
-  
-		// res.status(201).json(newItem);
-	} catch (e) {
-		res.status(500).send(e.message);
-	}
-});
+route.post('/extract/data/csv', uploadCSV);
