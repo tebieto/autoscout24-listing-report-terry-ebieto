@@ -1,10 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { HeaderContainer } from './header.styles';
 
-const Header = () => {
-    return (
-    <HeaderContainer>
+const Header = ():JSX.Element => (
+	<HeaderContainer>
+		<NavLink to="/">
+			<h1>Coding Challenge - AutoScout24 Listing Report</h1>
+		</NavLink>
+	</HeaderContainer>
+);
 
-    </HeaderContainer>
-    )
-};
+export default Header;

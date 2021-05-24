@@ -4,11 +4,11 @@
  */
 
 export interface ListingAttributes {
-    uuid: string;
+    uuid?: string;
     id: number;
     make: string;
     price: number;
     mileage: number;
     seller_type: string;
-    report_uuid: string
+    report_uuid?: string
 }

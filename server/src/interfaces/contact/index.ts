@@ -6,6 +6,6 @@
 export interface ContactAttributes {
     uuid?: string;
     listing_id: number;
-    contact_date: Date;
+    contact_date: string;
     report_uuid?: string
 }

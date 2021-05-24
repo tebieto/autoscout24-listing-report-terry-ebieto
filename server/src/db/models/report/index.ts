@@ -21,25 +21,23 @@ const Report = sequelize.define<ReportModel>(
 	'Report',
 	{
 		uuid: {
-			allowNull: false,
-			autoIncrement: false,
 			primaryKey: true,
 			type: DataTypes.UUID,
 			unique: true,
 		},
-		list_csv_link: {
+		listings_csv_link: {
 			allowNull: false,
 			type: DataTypes.STRING,
 		},
-		list_csv_name: {
+		listings_csv_name: {
 			allowNull: false,
 			type: DataTypes.STRING,
 		},
-		contact_csv_link: {
+		contacts_csv_link: {
 			allowNull: false,
 			type: DataTypes.STRING,
 		},
-		contact_csv_name: {
+		contacts_csv_name: {
 			allowNull: false,
 			type: DataTypes.STRING,
 		},
@@ -48,6 +46,7 @@ const Report = sequelize.define<ReportModel>(
 );
 
 Report.beforeCreate(async (report) => {
+	console.log(report);
 	report.uuid = await uuid();
 });
 
