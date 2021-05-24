@@ -3,7 +3,9 @@
  */
 
 import express, { Request, Response } from 'express';
+import multer from 'multer';
 import { uploadCSV } from '../middleware/upload';
+import { persistReport } from '../services/report';
 /**
  * Router Definition
  */
@@ -43,5 +45,6 @@ route.get('/report/:uuid', async (req: Request, res: Response) => {
 	}
 });
 
-// Extract data from CSV endpoint - POST METHOD
-route.post('/extract/data/csv', uploadCSV);
+// upload CSV files - POST METHOD
+const csvFilesField: multer.Field[] = [{ name: 'contacts', maxCount: 1 }, { name: 'listings', maxCount: 1 }];
+route.post('/upload/csv', uploadCSV.fields(csvFilesField), persistReport);

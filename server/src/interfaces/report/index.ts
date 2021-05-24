@@ -4,9 +4,9 @@
  */
 
 export interface ReportAttributes {
-    uuid: string;
-    list_csv_link: string;
-    list_csv_name: string;
-    contact_csv_link: string;
-    contact_csv_name: string;
+    uuid?: string;
+    listings_csv_link: string;
+    listings_csv_name: string;
+    contacts_csv_link: string;
+    contacts_csv_name: string;
 }

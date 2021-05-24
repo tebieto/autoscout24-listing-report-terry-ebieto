@@ -19,8 +19,6 @@ const Listing = sequelize.define<ListingModel>(
 	'Listing',
 	{
 		uuid: {
-			allowNull: false,
-			autoIncrement: false,
 			primaryKey: true,
 			type: DataTypes.UUID,
 			unique: true,
@@ -60,9 +58,5 @@ const Listing = sequelize.define<ListingModel>(
 
 	}
 );
-
-Listing.beforeCreate(async (listing) => {
-	listing.uuid = await uuid();
-});
 
 export default Listing;

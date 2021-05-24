@@ -6,7 +6,8 @@ import { HomeContainer } from './home.styles';
 const Home = (): JSX.Element => {
 
 	const defaulReports: PostResponseProps[] = [];
-	const defaultCSVFiles: uploadCSVsProps = { contactsCSV: '', listingsCSV: '' };
+	const defaultFile = new File([''], 'filename');
+	const defaultCSVFiles: uploadCSVsProps = { contactsCSV: defaultFile, listingsCSV: defaultFile };
     
 	const [csvFiles, setCSVFiles] = useState(defaultCSVFiles);
 	const [reports, setReports] = useState(defaulReports);
@@ -19,8 +20,7 @@ const Home = (): JSX.Element => {
     
 	const handleCSVUpload = async () => {
 		const report = await uploadCSVs(csvFiles);
-		console.log(setReports([...reports, report]));
-		console.log({ csvFiles });
+		setReports([...reports, report]);
 	};
 
 	return (

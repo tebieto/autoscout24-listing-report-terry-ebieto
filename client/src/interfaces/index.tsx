@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 
 export interface uploadCSVsProps {
-    contactsCSV: Blob | string, 
-    listingsCSV: Blob | string
+    contactsCSV: File, 
+    listingsCSV: File
 }
 
 export interface PostRequestAxiosProps {
