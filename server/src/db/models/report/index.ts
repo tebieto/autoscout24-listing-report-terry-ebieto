@@ -10,7 +10,7 @@ import Contact from '../contact';
  * And persisted to database
  */
 
-interface ReportModel
+export interface ReportModel
   extends Model<ReportAttributes>,
     ReportAttributes {
       createdAt?: Date;
@@ -55,7 +55,7 @@ Report.beforeCreate(async (report) => {
  * With this we can eager load contacts and listings belonging to a report
  */
 
-Report.hasMany(Listing, { sourceKey: 'uuid', foreignKey: 'report_uuid',as: 'listings' });
-Report.hasMany(Contact, { sourceKey: 'uuid', foreignKey: 'report_uuid',as: 'contacts' });
+Report.hasMany(Listing, { sourceKey: 'uuid', foreignKey: 'report_uuid', as: 'listings' });
+Report.hasMany(Contact, { sourceKey: 'uuid', foreignKey: 'report_uuid', as: 'contacts' });
 
 export default Report;

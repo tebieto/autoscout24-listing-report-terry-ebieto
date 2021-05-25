@@ -16,11 +16,10 @@ export const persistReport = async (req: Request, res: Response): Promise<void> 
 			const listings_csv_link = `${origin}/${csvUploadPath}/${listingsCsv.filename}`;
 			const contacts_csv_link = `${origin}/${csvUploadPath}/${listingsCsv.filename}`;
 			const report = await Report.create({ listings_csv_link, contacts_csv_link, listings_csv_name, contacts_csv_name  });
-			const report_uuid = report.uuid;
-			console.log({ report });
-			persistContactsToDatabase(report_uuid, contactsCsv.path);
-			persistListingsToDatabase(report_uuid, contactsCsv.path);
-			res.status(200).send('Successfully persisted report, contacts and listings');
+			const nextAction = () => {
+				persistContactsToDatabase(report, contactsCsv.path, res);
+			};
+			persistListingsToDatabase(report, listingsCsv.path, nextAction);
 		}else if(!contactsCsv) {
 			res.status(401).send('Contacts CSV(contacts.csv) is required');
 		} else if(!listingsCsv) {
