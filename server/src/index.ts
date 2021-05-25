@@ -7,10 +7,8 @@ import compression from 'compression';
 
 import { route } from './router';
 import * as dotenv from 'dotenv';
-import Contact from './db/models/contact';
-import Listing from './db/models/listing';
-import Report from './db/models/report';
-//import graphQLServer from './graphql';
+import graphQLServer from './graphql';
+import { syncSequelize } from './db/models';
 
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
@@ -28,30 +26,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(compression());
+
 /**
  * Adding a REST API endpoint and a GraphQL Server
  * I'll use the graphQL endpoint mainly for get requests(Queries)
- * REST endpoints will be made available for both GET and POST requests
- * I usually prefer REST APIs for file uploads and GraphQL for other forms of Query or Mutations 
+ * And I'll use GraphQL for Queries
  */
 app.use('/api', route);
-//graphQLServer.applyMiddleware({ app });
-if(process.env.SYNC === 'yes') {
-	(async () => {
-		try {
-			await Report.sync({ force: true });
-			await Contact.sync({ force: true });
-			await Listing.sync({ force: true });
-		} catch(error) {
-			console.log(error);
-		}
-	})();
-}
+graphQLServer.applyMiddleware({ app });
+
+/**
+ * Sync Sequelize Models on server start
+ */
+syncSequelize();
 
 /**
  * Server Activation
  */
-
 app.listen(port, () => {
 	console.log(`The application is listening on port ${port}!`);
 });

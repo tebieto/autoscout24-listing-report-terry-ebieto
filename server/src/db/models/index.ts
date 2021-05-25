@@ -8,4 +8,14 @@ const config: Credential = dbConfig[env];
 
 const  sequelize = new Sequelize(config.database, config.username, config.password, config.options);
 
-export { Sequelize, sequelize };
+const syncSequelize = async(): Promise<void> => {
+	if(process.env.SYNC === 'yes') {
+		try {
+			await sequelize.sync({ force: true });
+		} catch(error) {
+			console.log(error);
+		}
+	}
+};
+
+export { Sequelize, sequelize, syncSequelize };

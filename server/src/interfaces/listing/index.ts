@@ -8,7 +8,10 @@ export interface ListingAttributes {
     id: number;
     make: string;
     price: number;
+    formatted_price?: string;
+    formatted_mileage?: string
     mileage: number;
     seller_type: string;
-    report_uuid?: string
+    report_uuid?: string;
+    occurence?: number
 }

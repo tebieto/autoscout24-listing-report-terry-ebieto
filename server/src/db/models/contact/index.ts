@@ -6,7 +6,7 @@ import { sequelize } from '../index';
  * And persisted to database
  */
 
-interface ContactModel
+export interface ContactModel
   extends Model<ContactAttributes>,
     ContactAttributes {
       createdAt?: Date;
