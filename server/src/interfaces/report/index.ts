@@ -30,7 +30,7 @@ export interface ReportAttributes {
     avgListingSellingPricePerSellerType?: AverageListingSellingPricePerSellerType[];
     percentageDistributionByMake?: PercentageDistributionByMake[];
     topFiveMostcontactedListingsByMonth?: string;
-    avgPriceOfMostContactedListings?: string;
+    avgPriceOfTopThirtyMostContactedListings?: string;
 }
 
 export interface ModelCountType {

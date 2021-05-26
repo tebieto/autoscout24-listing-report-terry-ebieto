@@ -11,8 +11,8 @@ export interface ReportAttributes {
     avgListings?: ListingAttributes[];
     avgListingSellingPricePerSellerType?: AverageListingSellingPricePerSellerType[];
     percentageDistributionByMake?: PercentageDistributionByMake[];
-    topFiveMostcontactedListingsByMonth?: string;
-    avgPriceOfMostContactedListings?: string;
+    topFiveMostcontactedListingsByMonth: string;
+    avgPriceOfTopThirtyMostContactedListings?: string;
     createdAt: string;
 }
 

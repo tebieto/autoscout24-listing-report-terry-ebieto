@@ -15,6 +15,7 @@ export const persistContactsToDatabase = async (report: ReportModel, contactCSVP
 			throw error.message;
 		})
 		.on('data', async(row: ContactAttributes) => {
+			//store row in an array only after passing the checks
 			if(row && row.listing_id && row.contact_date) {
 				contacts.push({ ...row, report_uuid: report.uuid, uuid: await uuid() });
 			} 
@@ -22,9 +23,14 @@ export const persistContactsToDatabase = async (report: ReportModel, contactCSVP
 		.on('end', async () => {
 			try {
 				if(contacts.length) {
+					//everything is fine, save listings to database with sequelize bulkCreate method
 					await Contact.bulkCreate(contacts);
 					res.status(200).send('Successfully persisted report, contacts and listings');
 				} else {
+					/**
+					 * empty contacts means error in the file formate
+					 * destroy the report and send error message
+					 */
 					report.destroy();
 					res.status(401).send('Invalid Contacts CSV format found');
 				}

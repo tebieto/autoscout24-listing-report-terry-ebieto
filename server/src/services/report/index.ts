@@ -15,11 +15,20 @@ export const persistReport = async (req: Request, res: Response): Promise<void> 
 			const contacts_csv_name = contactsCsv.filename;
 			const listings_csv_link = `${origin}/${csvUploadPath}/${listingsCsv.filename}`;
 			const contacts_csv_link = `${origin}/${csvUploadPath}/${listingsCsv.filename}`;
+			/** 
+			 * we want to create a report with these information, for record and tracking purpose
+			 * contacts and listings posted at the same time are tracked with report uuid
+			 * this allows us to upload multiple contacts.csv and listings.csv pair and generate detailed reports
+			 * accordingly while keeping an upload history
+			 * */ 
 			const report = await Report.create({ listings_csv_link, contacts_csv_link, listings_csv_name, contacts_csv_name  });
+			
 			const nextAction = () => {
+				// Will be fired when persisListingsToDatabase is completed successfully with no errors
+				// This will persist ContactsCSV data To Database
 				persistContactsToDatabase(report, contactsCsv.path, res);
 			};
-			persistListingsToDatabase(report, listingsCsv.path, nextAction, res);
+			persistListingsToDatabase(report, listingsCsv.path, res, nextAction);
 		}else if(!contactsCsv) {
 			res.status(401).send('Contacts CSV(contacts.csv) is required');
 		} else if(!listingsCsv) {
