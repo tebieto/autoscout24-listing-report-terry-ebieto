@@ -47,3 +47,7 @@ export interface PercentageDistributionByMake{
     count: string;
     percentage: string;
 }
+
+export interface TopFiveMostcontactedListingsByMonth {
+	[fieldname: string]: ListingAttributes[]
+}

@@ -1,12 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HeaderContainer } from './header.styles';
+import logo from '../../assets/report.svg';
 
 const Header = ():JSX.Element => (
 	<HeaderContainer>
 		<NavLink to="/">
-			<h1>Coding Challenge - AutoScout24 Listing Report</h1>
+			<img src={logo} alt="" />
 		</NavLink>
+		<h2>Listings Report</h2>
 	</HeaderContainer>
 );
 

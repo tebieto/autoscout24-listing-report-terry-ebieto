@@ -14,10 +14,10 @@ const Reports = (): JSX.Element => {
 
 	return(
 		<ReportsStylesContainer>
-			<h2>Uploaded Records</h2>
+			<h2>Uploaded Reports</h2>
 			{
 				reports && reports.length ?
-					<table>
+					<table cellSpacing="10px">
 						<thead>
 							<tr>
 								<th>No.</th>
