@@ -17,16 +17,19 @@ export const persistContactsToDatabase = async (report: ReportModel, contactCSVP
 		.on('data', async(row: ContactAttributes) => {
 			if(row && row.listing_id && row.contact_date) {
 				contacts.push({ ...row, report_uuid: report.uuid, uuid: await uuid() });
-			} else {
-				throw new Error('Invalid Contacts format in CSV');
-			}
+			} 
 		})
 		.on('end', async () => {
 			try {
-				await Contact.bulkCreate(contacts);
-				res.status(200).send('Successfully persisted report, contacts and listings');
+				if(contacts.length) {
+					await Contact.bulkCreate(contacts);
+					res.status(200).send('Successfully persisted report, contacts and listings');
+				} else {
+					report.destroy();
+					res.status(401).send('Invalid Contacts CSV format found');
+				}
 			} catch(error) {
-				throw new Error(error);
+				console.log(error);
 			}
 		});	
 };

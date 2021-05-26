@@ -7,6 +7,17 @@ import { ListingModel } from '../../db/models/listing';
 import { ContactAttributes } from '../contact';
 import { ListingAttributes } from '../listing';
 
+export interface AverageListingSellingPricePerSellerType {
+    seller_type: string;
+    count: string | undefined; 
+    avg_price: string;
+}
+export interface PercentageDistributionByMake{
+    make: string;
+    count: string;
+    percentage: string;
+}
+
 export interface ReportAttributes {
     uuid?: string;
     listings_csv_link: string;
@@ -15,15 +26,25 @@ export interface ReportAttributes {
     contacts_csv_name: string;
     listings?: ListingAttributes[];
     contacts?: ContactAttributes[];
-    avgListings?: ListingAttributes[]
+    avgListings?: ListingAttributes[];
+    avgListingSellingPricePerSellerType?: AverageListingSellingPricePerSellerType[];
+    percentageDistributionByMake?: PercentageDistributionByMake[];
+    topFiveMostcontactedListingsByMonth?: string;
+    avgPriceOfMostContactedListings?: string;
 }
 
-export interface ContactedListingsCountObect {
-    [fieldname: string]:number
+export interface ModelCountType {
+    [fieldname: string]:number;
 }
 
 export interface ContactedListingsWithCount {
-    listing_id: number,
-    count: string,
-    listing: ListingModel,
+    listing_id: number;
+    count: string;
+    listing: ListingModel;
+}
+
+export interface ListingSellerType {
+    count?: string;
+    seller_type: string;
+    avg_price: string
 }

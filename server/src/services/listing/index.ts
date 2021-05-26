@@ -3,10 +3,10 @@ import * as csv from 'fast-csv';
 import { ListingAttributes } from '../../interfaces/listing';
 import Listing from '../../db/models/listing';
 import {  v4 as uuid } from 'uuid';
-import { NextFunction } from 'express';
+import { NextFunction, Response } from 'express';
 import { ReportModel } from '../../db/models/report';
 
-export const persistListingsToDatabase = (report: ReportModel, listingsCSVPath: string, nextAction: NextFunction): void => {
+export const persistListingsToDatabase = (report: ReportModel, listingsCSVPath: string, nextAction: NextFunction, res: Response): void => {
 	const listings: ListingAttributes[] = [];
 	fs.createReadStream(listingsCSVPath)
 		.pipe(csv.parse({ headers: true }))
@@ -16,17 +16,19 @@ export const persistListingsToDatabase = (report: ReportModel, listingsCSVPath: 
 		.on('data', async(row: ListingAttributes) => {
 			if(row && row.price && row.seller_type && row.mileage && row.id && row.make) {
 				listings.push({ ...row, report_uuid: report.uuid, uuid: await uuid() });
-			} else {
-				report.destroy();
-				throw new Error('Invalid Listings format in CSV');
 			}
 		})
 		.on('end', async () => {
 			try {
-				await Listing.bulkCreate(listings);
-				nextAction();
+				if(listings.length) {
+					await Listing.bulkCreate(listings);
+					nextAction();
+				} else {
+					report.destroy();
+					res.status(401).send('Invalid listings format');
+				}
 			} catch(error) {
-				throw new Error(error);
+				console.log(error);
 			}
 		});	
 };

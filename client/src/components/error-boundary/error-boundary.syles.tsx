@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
 export const ErrorImageOverlay = styled.div`
-    height: 60vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
 `;
 
 interface ErrorImageContainerProps {
@@ -19,7 +23,7 @@ export const ErrorImageContainer = styled.div<ErrorImageContainerProps>`
     background-size: cover;
     background-position: center;
     width: 40vh;
-    height: 40vh;
+    height: 40vh; 
 `;
 
 export const ErrorImageText = styled.h2`

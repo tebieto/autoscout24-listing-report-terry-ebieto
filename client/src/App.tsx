@@ -15,7 +15,7 @@ function App(): JSX.Element {
 				<ErrorBoundary>
 					<Suspense fallback={<Loader />}>
 						<Route path={'/'} exact component={Home}  />
-						<Route path={'/report/:id'} component={Report}  />
+						<Route path={'/report/:uuid'} component={Report}  />
 					</Suspense>
 				</ErrorBoundary>
 			</Switch>
