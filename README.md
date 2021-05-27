@@ -27,8 +27,8 @@ And generates four reports including
 ## Run Locally
 * see .env.sample.dev for required environment variables
 * install npm, node and postgres locally
+* cd /server && yarn dev
 * if you do not want to make local installations, run in container instead
-* cd server && yarn dev
 
 ## Run In Container(DOCKER)
 * install docker locally

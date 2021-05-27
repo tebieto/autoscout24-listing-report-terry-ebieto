@@ -27,18 +27,22 @@ const Report = sequelize.define<ReportModel>(
 		},
 		listings_csv_link: {
 			allowNull: false,
+			unique: false,
 			type: DataTypes.STRING,
 		},
 		listings_csv_name: {
 			allowNull: false,
+			unique: false,
 			type: DataTypes.STRING,
 		},
 		contacts_csv_link: {
 			allowNull: false,
+			unique: false,
 			type: DataTypes.STRING,
 		},
 		contacts_csv_name: {
 			allowNull: false,
+			unique: false,
 			type: DataTypes.STRING,
 		},
 
@@ -46,7 +50,6 @@ const Report = sequelize.define<ReportModel>(
 );
 
 Report.beforeCreate(async (report) => {
-	console.log(report);
 	report.uuid = await uuid();
 });
 
@@ -57,5 +60,8 @@ Report.beforeCreate(async (report) => {
 
 Report.hasMany(Listing, { sourceKey: 'uuid', foreignKey: 'report_uuid', as: 'listings' });
 Report.hasMany(Contact, { sourceKey: 'uuid', foreignKey: 'report_uuid', as: 'contacts' });
+
+Listing.belongsTo(Report, { foreignKey: 'report_uuid', as: 'report' });
+Contact.belongsTo(Report, { foreignKey: 'report_uuid', as: 'report' });
 
 export default Report;

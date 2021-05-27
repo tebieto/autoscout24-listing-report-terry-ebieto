@@ -23,7 +23,7 @@ export const persistListingsToDatabase = (report: ReportModel, listingsCSVPath: 
 			try {
 				if(listings.length) {
 					//everything is fine, save listings to database with sequelize bulkCreate method
-					await Listing.bulkCreate(listings);
+					Listing.bulkCreate(listings);
 					nextAction();
 				} else {
 					/**

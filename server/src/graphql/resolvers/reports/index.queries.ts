@@ -26,17 +26,20 @@ export const reportsQueries = {
 
 			const sellerTypes : ModelCountType | ListingSellerType[] = await Listing.count({
 				attributes: ['seller_type'],
-				group: ['seller_type']
+				group: ['seller_type'],
+				where: { report_uuid: report.uuid }
 			});
 
 			const listingDistributionByCarMake: ModelCountType | PercentageDistributionByMake[]  = await Listing.count({
 				attributes: ['make'],
-				group: ['make']
+				group: ['make'],
+				where: { report_uuid: report.uuid }
 			});
 
 			const contactedListingCount: ModelCountType| ContactedListingsWithCount[]  = await Contact.count({
 				attributes: ['listing_id'],
 				group: ['listing_id'],
+				where: { report_uuid: report.uuid }
 			});
 
 			report.contacts = contacts,

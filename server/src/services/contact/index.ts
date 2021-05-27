@@ -24,7 +24,7 @@ export const persistContactsToDatabase = async (report: ReportModel, contactCSVP
 			try {
 				if(contacts.length) {
 					//everything is fine, save listings to database with sequelize bulkCreate method
-					await Contact.bulkCreate(contacts);
+					Contact.bulkCreate(contacts);
 					res.status(200).send('Successfully persisted report, contacts and listings');
 				} else {
 					/**

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Report from '../../db/models/report';
+import Report, { ReportModel } from '../../db/models/report';
 import { csvUploadPath } from '../../utils';
 import { persistContactsToDatabase } from '../contact';
 import { persistListingsToDatabase } from '../listing';
@@ -21,14 +21,20 @@ export const persistReport = async (req: Request, res: Response): Promise<void> 
 			 * this allows us to upload multiple contacts.csv and listings.csv pair and generate detailed reports
 			 * accordingly while keeping an upload history
 			 * */ 
-			const report = await Report.create({ listings_csv_link, contacts_csv_link, listings_csv_name, contacts_csv_name  });
+			const report: ReportModel = await Report.create({ listings_csv_link, contacts_csv_link, listings_csv_name, contacts_csv_name  });
 			
 			const nextAction = () => {
 				// Will be fired when persisListingsToDatabase is completed successfully with no errors
 				// This will persist ContactsCSV data To Database
-				persistContactsToDatabase(report, contactsCsv.path, res);
+				if(report) {
+					persistContactsToDatabase(report, contactsCsv.path, res);
+				}
 			};
-			persistListingsToDatabase(report, listingsCsv.path, res, nextAction);
+			if(report) {
+				persistListingsToDatabase(report, listingsCsv.path, res, nextAction);
+			} else {
+				res.status(401).send('Error creating report');
+			}
 		}else if(!contactsCsv) {
 			res.status(401).send('Contacts CSV(contacts.csv) is required');
 		} else if(!listingsCsv) {
