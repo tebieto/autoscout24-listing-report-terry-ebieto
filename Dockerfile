@@ -3,7 +3,7 @@ FROM node:14-alpine AS builder
 
 WORKDIR /app
 COPY ./client/package.json ./client/yarn.lock ./client/
-RUN cd client && yarn install --production
+RUN cd client && yarn install
 
 COPY ./client ./client
 RUN cd client && yarn run build
@@ -14,9 +14,10 @@ FROM node:14-alpine
 
 WORKDIR /app
 COPY ./server/package.json ./server/yarn.lock ./server/
-RUN cd server && yarn install --production
+COPY ./server/tsconfig.json ./server/tsconfig.json ./server/
+RUN cd server && yarn install
+COPY ./server ./server
 RUN cd server && yarn build
-COPY ./server/build ./server/build
 COPY --from=builder /app/client/build ./client/build
 RUN mkdir -p /app/server/build/uploads/csv
 EXPOSE 5000
