@@ -19,6 +19,7 @@ And generates four reports including
 * Backend: Express
 * Frontend: React
 * Test: Jest
+* Enpoint Test: supertest
 * Linter: Eslint
 * Database: Postgres
 * ORM: Sequelize
@@ -31,12 +32,17 @@ And generates four reports including
 * if you do not want to make local installations, run in container instead
 
 ## Run In Container(DOCKER)
-* install docker locally
-* docker-compose build
-* docker-compose up -d listings-app
+* install docker locally or any remote provider
+* RUN docker-compose build
+* RUN docker-compose up -d listings-report
 * default PORT is 5000, u can edit in docker-compose.yaml
 
+## Run Tests
+* cd server
+* RUN yarn test
+
 ## Information
+* Test will only pass when there is database access
 * Find example CSV files listings.csv, contacts.csv in /server
 * app entry file is at /server/src/index.ts
 
@@ -48,4 +54,6 @@ And generates four reports including
 * Make my react components more granular(atomic)
 * report delete and update functionality
 * Swagger documentation REST API endpoints
-* More tests
+* Need to fix some bugs with sequelize models not syncing during tests
+* And has caused some tests to fail
+* Add more unit tests
