@@ -1,4 +1,4 @@
-version: "3.8"
+version: "2"
 services:
   listings-report:
     image: tebieto/listings:v1.0.0
@@ -12,23 +12,23 @@ services:
       - PORT=5000
       - DB_USERNAME=root
       - DB_PASSWORD=root
-      - PGDATABASE=autoscout24
-      - PGDATABASEPROD=autoscout24Prod
+      - PGDATABASE=testdb
+      - PGDATABASEPROD=
       - PGHOST=listings-db
-      - NODE_ENV=production
+      - NODE_ENV=development
     volumes:
       - ./server/build/uploads/csv:/app/server/build/uploads/csv
     depends_on:
-      - listings-db
-  listings-db:
-    container_name: listings-db
+      - test-db
+  test-db:
+    container_name: test-db
     image: "postgres:12"
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=autoscout24Prod
+      - POSTGRES_DB=test-db
     volumes:
       - listings-data:/var/lib/postgresql/data
 volumes:
