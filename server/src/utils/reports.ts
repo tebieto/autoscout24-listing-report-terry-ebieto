@@ -1,10 +1,11 @@
 import { ContactModel } from '../db/models/contact';
 import { ListingModel } from '../db/models/listing';
+import { ListingAttributes } from '../interfaces/listing';
 import { AverageListingSellingPricePerSellerType, ContactedListingsWithCount, ListingSellerType, ModelCountType, PercentageDistributionByMake } from '../interfaces/report';
 
 
 interface ListingsByMonth {
-	[fieldname: string]: ListingModel[]
+	[fieldname: string]: ListingAttributes[]
 }
 
 const formatPrice = (price: number ): string => {
@@ -43,7 +44,8 @@ export const getTopFiveMostcontactedListingsByMonth = (contacts: ContactModel[],
 		 * Getting the month listing was contacted
 		 */
 		const date = new Date(parseInt(contact.contact_date));
-		const month = `${date.getMonth()}.${date.getFullYear()}`;
+		const originalMonth = date.getMonth() + 1;
+		const month = `${originalMonth > 9 ? originalMonth : `0${originalMonth}`}.${date.getFullYear()}`;
 		const listing = listings.find(listing => listing.id === contact.listing_id);
 		if(listing) {
 			if(contactedListingsByMonth[month]) {
@@ -70,7 +72,7 @@ export const getTopFiveMostcontactedListingsByMonth = (contacts: ContactModel[],
 			}
 		});
 
-		const result: ListingModel[] = [];
+		const result: ListingAttributes[] = [];
 
 		const maximumReturnLength = 5;
 		
@@ -81,10 +83,15 @@ export const getTopFiveMostcontactedListingsByMonth = (contacts: ContactModel[],
 			.forEach(listingId => {
 				const listing = listings.find(listing => listing.id === parseInt(listingId));
 				if(listing) {
-					listing['occurence'] = listingsIdOccurenceCount[listing.id];
-					listing.formatted_price= formatPrice(listing.price);
-					listing.formatted_mileage = `${listing.mileage.toFixed(3)} KM`;
-					result.push(listing);
+					const occurence = listingsIdOccurenceCount[listing.id];
+					const formatted_price= formatPrice(listing.price);
+					const formatted_mileage = `${listing.mileage.toFixed(3)} KM`;
+					const make = listing.make;
+					const id = listing.id;
+					const price = listing.price;
+					const mileage = listing.mileage;
+					const seller_type = listing.seller_type;
+					result.push({ seller_type, price,make, mileage, id, occurence, formatted_mileage, formatted_price });
 				}
 			});
 
@@ -114,8 +121,8 @@ export const getAvgPriceOfMostContactedListings = (listings: ListingModel[], con
 
 	const topThirtyPercentLength = Math.floor((30 * contactedListings.length) / 100);
 	const topThirthyPercentContactedListings =  contactedListings.slice(0, topThirtyPercentLength);
-	const avgPriceOfMostContactedListings = (topThirthyPercentContactedListings.reduce((contactedListingPriceSum, nextContactedListing) => contactedListingPriceSum + (nextContactedListing.listing.price), 0)/topThirtyPercentLength);
-	return  formatPrice(avgPriceOfMostContactedListings);
+	const avgPriceOfTopThirtyMostContactedListings = (topThirthyPercentContactedListings.reduce((contactedListingPriceSum, nextContactedListing) => contactedListingPriceSum + (nextContactedListing.listing.price), 0)/topThirtyPercentLength);
+	return  formatPrice(avgPriceOfTopThirtyMostContactedListings);
 };
 
 export const getPercentageDistributionOfListingsByCarMake = (listingDistributionByCarMake: ModelCountType | PercentageDistributionByMake[]): PercentageDistributionByMake[] => {

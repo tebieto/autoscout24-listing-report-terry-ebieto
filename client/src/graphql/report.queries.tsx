@@ -21,7 +21,7 @@ export const REPORT = gql`
                 make, count, percentage
             },
             topFiveMostcontactedListingsByMonth,
-            avgPriceOfMostContactedListings,
+            avgPriceOfTopThirtyMostContactedListings,
             avgListingSellingPricePerSellerType{
                 seller_type,
                 count,

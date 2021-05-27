@@ -15,7 +15,6 @@ And generates four reports including
 * The Top 5 most contacted listings per month
 
 ## Technology
-
 * Language: TypeScript
 * Backend: Express
 * Frontend: React
@@ -26,21 +25,27 @@ And generates four reports including
 * Container: Docker
 
 ## Run Locally
-
+* see .env.sample.dev for required environment variables
 * install npm, node and postgres locally
-* yarn start
+* if you do not want to make local installations, run in container instead
+* cd server && yarn dev
 
-## Run In Container
-
+## Run In Container(DOCKER)
 * install docker locally
-
-* docker-compose up
-
-## Live Link
-
-Coming soon
+* docker-compose build
+* docker-compose up -d listings-app
+* default PORT is 5000, u can edit in docker-compose.yaml
 
 ## Information
+* Find example CSV files listings.csv, contacts.csv in /server
+* app entry file is at /server/src/index.ts
 
-Find example CSV files listings.csv, contacts.csv in project root
-
+## Possible Improvements and Upgrades
+* User authentication functionality
+* Better UI design components(e.g from Material UI or ANT design) for better UI/UX 
+* Improved accessibility for screen readers
+* More user friendly Success and Error alerts
+* Make my react components more granular(atomic)
+* report delete and update functionality
+* Swagger documentation REST API endpoints
+* More tests

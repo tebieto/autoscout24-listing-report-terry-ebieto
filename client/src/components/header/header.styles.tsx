@@ -6,9 +6,16 @@ export const HeaderContainer = styled.div`
     top: 0;
     left: 0;
     padding: 10px  30px;
+    display: flex;
+    align-items: center;
     a:link, a:visited {
         text-decoration: none;
         color: inherit;
     }
-    text-align: center;
+    img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
 `;

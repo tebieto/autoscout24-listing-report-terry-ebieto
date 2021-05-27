@@ -2,40 +2,59 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router';
 import { PageNotFound, ReportStylesContainer } from './report.styles';
-import { ReportAttributes } from '../../interfaces/report';
+import { ReportAttributes, TopFiveMostcontactedListingsByMonth } from '../../interfaces/report';
 import { REPORT } from '../../graphql/report.queries';
 import Header from '../../components/header/header.component';
 import Loader from '../../components/loader/loader.component';
+import MostContacted from '../../components/most-contacted/most-contacted.component';
+import AverageListing from '../../components/average-listing/average-listing.component';
 
 const Report = ():JSX.Element => {
 	const params: { uuid: string } = useParams();
 	const { data, loading } = useQuery(REPORT, { variables: { uuid: params.uuid } });
 	const report: ReportAttributes = data && data.report;
-	console.log(report);
+	const topFiveMostcontactedListingsByMonth: TopFiveMostcontactedListingsByMonth = report ? JSON.parse(report.topFiveMostcontactedListingsByMonth) : null;
 	return (
 		report ?
 			<ReportStylesContainer>
-				<h2>Average Listing Selling Price Per Seller Type</h2>
+				<AverageListing report={report} />
+				<h2>Percentage Distribution of Available Cars By Make</h2>
 				<table>
 					<thead>
-						<th>Seller Type</th>
-						<th>Average Price</th>
+						<tr>
+							<th>Make</th>
+							<th>Distribution</th>
+						</tr>
 					</thead>
 					<tbody>
 						{
-							report.avgListingSellingPricePerSellerType?.map((average, key) => (
+							report.percentageDistributionByMake?.map((distribution, key)=> (
 								<tr key={key}>
-									<td>{average.seller_type}</td>
-									<td>{average.avg_price}</td>
+									<td>{distribution.make}</td>
+									<td>{distribution.percentage}</td>
 								</tr>
 							))
 						}
 					</tbody>
 				</table>
-				<h2>Percentage Distribution of Available Cars By Make</h2>
+				<h2>Average Price of the 30% Most Contacted List</h2>
 				<table>
-					
+					<thead>
+						<tr>
+							<th>Average Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								{
+									report.avgPriceOfTopThirtyMostContactedListings
+								}
+							</td>
+						</tr>
+					</tbody>
 				</table>
+				<MostContacted topFiveMostcontactedListingsByMonth={topFiveMostcontactedListingsByMonth}  />
 			</ReportStylesContainer> : loading ? <Loader /> : <PageNotFound>
 				<Header />
 				<h3>404 Page not foud</h3>

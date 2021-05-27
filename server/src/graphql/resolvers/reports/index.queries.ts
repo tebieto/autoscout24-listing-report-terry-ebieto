@@ -44,7 +44,7 @@ export const reportsQueries = {
 			report.avgListingSellingPricePerSellerType = getAvgListingSellingPricePerSellerType(listings, sellerTypes);
 			report.percentageDistributionByMake = getPercentageDistributionOfListingsByCarMake(listingDistributionByCarMake);
 			report.topFiveMostcontactedListingsByMonth = getTopFiveMostcontactedListingsByMonth(contacts, listings);
-			report.avgPriceOfMostContactedListings = getAvgPriceOfMostContactedListings(listings, contactedListingCount);
+			report.avgPriceOfTopThirtyMostContactedListings = getAvgPriceOfMostContactedListings(listings, contactedListingCount);
 			return report;
 		}
 

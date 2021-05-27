@@ -19,4 +19,4 @@ const storage =  (filePath: string): multer.StorageEngine => multer.diskStorage(
 	},
 });
 
-export const uploadCSV = multer({ storage: storage(csvUploadPath), fileFilter: csvFilter });
+export const uploadCSVWithMulter = multer({ storage: storage(csvUploadPath), fileFilter: csvFilter });

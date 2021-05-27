@@ -31,7 +31,7 @@ export const reportTypeDefs = gql`
         avgListingSellingPricePerSellerType: [AverageListingSellingPricePerSellerType],
         percentageDistributionByMake: [PercentageDistributionByMake],
         topFiveMostcontactedListingsByMonth: String,
-        avgPriceOfMostContactedListings: String
+        avgPriceOfTopThirtyMostContactedListings: String
         createdAt: String!,
         updatedAt: String!
     }
