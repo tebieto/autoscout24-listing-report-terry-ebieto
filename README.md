@@ -34,7 +34,7 @@ And generates four reports including
 ## Run In Container(DOCKER)
 * install docker locally or any remote provider
 * RUN docker-compose build
-* RUN docker-compose up -d listings-report
+* RUN docker-compose up -d test-app
 * default PORT is 5000, u can edit in docker-compose.yaml
 
 ## Run Tests
