@@ -9,6 +9,7 @@ describe('test the Contacts model', () => {
 	// Before any tests run, clear the DB and run migrations with Sequelize sync()
 	beforeAll(async () => {
 		await syncModels();
+		await sequelize.sync();
 	});
 
 	it('should succeed when bulk creating contacts', async () => {

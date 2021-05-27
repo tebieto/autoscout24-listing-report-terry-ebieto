@@ -11,4 +11,7 @@ export const UploadStylesContainer = styled.div`
             font-size: 15px;
         }
     }
+    @media screen and (max-width: 800px) {
+        margin: 50px 20px;
+    }
 `;

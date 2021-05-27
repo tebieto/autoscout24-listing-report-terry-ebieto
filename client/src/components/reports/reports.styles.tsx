@@ -11,4 +11,12 @@ export const ReportsStylesContainer = styled.div`
             text-align: center;
         }
     }
+    @media screen and (max-width: 800px) {
+     margin: 50px 20px;
+     max-width: 100%;
+     overflow: auto;
+     button {
+         font-size: 12px;
+     }
+    }
 `;

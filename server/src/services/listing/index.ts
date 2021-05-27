@@ -6,7 +6,7 @@ import {  v4 as uuid } from 'uuid';
 import { NextFunction, Response } from 'express';
 import { ReportModel } from '../../db/models/report';
 
-export const persistListingsToDatabase = (report: ReportModel, listingsCSVPath: string, res: Response, nextAction: NextFunction): void => {
+export const persistListingsToDatabase = (report: ReportModel, report_uuid: string, listingsCSVPath: string, res: Response, nextAction: NextFunction): void => {
 	const listings: ListingAttributes[] = [];
 	fs.createReadStream(listingsCSVPath)
 		.pipe(csv.parse({ headers: true }))
@@ -16,7 +16,7 @@ export const persistListingsToDatabase = (report: ReportModel, listingsCSVPath: 
 		.on('data', async(row: ListingAttributes) => {
 			//store rows in an array only after passing the checks
 			if(row && row.price && row.seller_type && row.mileage && row.id && row.make) {
-				listings.push({ ...row, report_uuid: report.uuid, uuid: await uuid() });
+				listings.push({ ...row, report_uuid, uuid: await uuid() });
 			}
 		})
 		.on('end', async () => {

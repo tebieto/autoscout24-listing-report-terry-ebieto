@@ -8,7 +8,6 @@ import { ContactedListingsWithCount, ListingSellerType, ModelCountType, Percenta
 import { fakeReport } from '../../../utils/fake';
 import { getAvgListingSellingPricePerSellerType, getAvgPriceOfMostContactedListings, getPercentageDistributionOfListingsByCarMake, getTopFiveMostcontactedListingsByMonth } from '../../../utils/reports';
 import {  v4 as uuid } from 'uuid';
-import { report } from 'process';
 
 describe('test graphql resolver report(uuid)', () => {
 	// Before any tests run, clear the DB and run migrations with Sequelize sync()

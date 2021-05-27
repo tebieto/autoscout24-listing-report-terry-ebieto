@@ -8,6 +8,7 @@ import Header from '../../components/header/header.component';
 import Loader from '../../components/loader/loader.component';
 import MostContacted from '../../components/most-contacted/most-contacted.component';
 import AverageListing from '../../components/average-listing/average-listing.component';
+import PercentageDistribution from '../../components/percentage-distribution/percentage-distribution.components';
 
 const Report = ():JSX.Element => {
 	const params: { uuid: string } = useParams();
@@ -17,43 +18,27 @@ const Report = ():JSX.Element => {
 	return (
 		report ?
 			<ReportStylesContainer>
-				<AverageListing report={report} />
-				<h2>Percentage Distribution of Available Cars By Make</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Make</th>
-							<th>Distribution</th>
-						</tr>
-					</thead>
-					<tbody>
-						{
-							report.percentageDistributionByMake?.map((distribution, key)=> (
-								<tr key={key}>
-									<td>{distribution.make}</td>
-									<td>{distribution.percentage}</td>
-								</tr>
-							))
-						}
-					</tbody>
-				</table>
-				<h2>Average Price of the 30% Most Contacted List</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Average Price</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								{
-									report.avgPriceOfTopThirtyMostContactedListings
-								}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div className="align-left">
+					<AverageListing report={report} />
+					<PercentageDistribution report={report} />
+					<h2>Average Price of the 30% Most Contacted List</h2>
+					<table>
+						<thead>
+							<tr>
+								<th>Average Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									{
+										report.avgPriceOfTopThirtyMostContactedListings
+									}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<MostContacted topFiveMostcontactedListingsByMonth={topFiveMostcontactedListingsByMonth}  />
 			</ReportStylesContainer> : loading ? <Loader /> : <PageNotFound>
 				<Header />

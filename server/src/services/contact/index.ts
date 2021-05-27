@@ -7,7 +7,7 @@ import { Stream } from 'stream';
 import { Response } from 'express';
 import { ReportModel } from '../../db/models/report';
 
-export const persistContactsToDatabase = async (report: ReportModel, contactCSVPath: string, res: Response): Promise<Stream> => {
+export const persistContactsToDatabase = async (report: ReportModel, report_uuid: string, contactCSVPath: string, res: Response): Promise<Stream> => {
 	const contacts: ContactAttributes[] = [];
 	return await fs.createReadStream(contactCSVPath)
 		.pipe(csv.parse({ headers: true }))
@@ -17,7 +17,7 @@ export const persistContactsToDatabase = async (report: ReportModel, contactCSVP
 		.on('data', async(row: ContactAttributes) => {
 			//store row in an array only after passing the checks
 			if(row && row.listing_id && row.contact_date) {
-				contacts.push({ ...row, report_uuid: report.uuid, uuid: await uuid() });
+				contacts.push({ ...row, report_uuid: report_uuid, uuid: await uuid() });
 			} 
 		})
 		.on('end', async () => {

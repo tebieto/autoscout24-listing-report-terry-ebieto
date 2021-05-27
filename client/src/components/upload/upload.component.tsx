@@ -6,6 +6,7 @@ export const Upload = (): JSX.Element => {
 	const defaultCSVFiles: uploadCSVsProps = { contactsCSV: null, listingsCSV: null };
 	const [csvFiles, setCSVFiles] = useState(defaultCSVFiles);
 	const [uploadingState, setUploadingState] = useState(false);
+	const [processingData, setProcessingData] = useState(false);
         
 	const handleCSVChange = useCallback(async (e: HTMLInputEvent ): Promise<void> => {
 		const { name } = e.target;
@@ -17,7 +18,8 @@ export const Upload = (): JSX.Element => {
 		if(!uploadingState) {
 			setUploadingState(true);
 			uploadCSVs(csvFiles).then(() => {
-				alert('Reports added successfully');
+				setProcessingData(true);
+				alert('File uploaded successfully, Generating report...');
 				window.location.reload();
 			})
 				.catch((error) => {
@@ -39,7 +41,7 @@ export const Upload = (): JSX.Element => {
 						<legend>Listings CSV</legend>
 						<input onChange={handleCSVChange} accept="*.csv" aria-label="upload-listings-csv" type="file" name="listingsCSV" id="listings" />
 					</fieldset>
-					<button onClick={handleCSVUpload} type="submit">{uploadingState ? 'Uploading...' : 'Upload'}</button>
+					<button onClick={handleCSVUpload} type="submit">{uploadingState ? 'Uploading...' : processingData ? 'saving & reloading...' : 'Upload'}</button>
 				</div>
 			</div>
 		</UploadStylesContainer>
