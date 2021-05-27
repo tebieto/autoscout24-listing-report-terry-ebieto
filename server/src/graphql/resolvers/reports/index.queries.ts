@@ -1,8 +1,8 @@
 import Contact from '../../../db/models/contact';
 import Listing from '../../../db/models/listing';
 import Report from '../../../db/models/report';
-import { ContactedListingsCountObect, ContactedListingsWithCount, ReportAttributes } from '../../../interfaces/report';
-import { getAvgListings, getAvgPriceOfMostContactedListings, getMostcontactedListingsByMonth } from '../../../utils/reports';
+import { ContactedListingsWithCount, ModelCountType, ReportAttributes, ListingSellerType, PercentageDistributionByMake } from '../../../interfaces/report';
+import { getAvgListingSellingPricePerSellerType, getAvgPriceOfMostContactedListings, getPercentageDistributionOfListingsByCarMake, getTopFiveMostcontactedListingsByMonth } from '../../../utils/reports';
 
 export const reportsQueries = {
 	async reports(): Promise<ReportAttributes[]> {
@@ -24,28 +24,27 @@ export const reportsQueries = {
 				order: [['createdAt', 'DESC']],
 			});
 
-			const sellerTypeCount  = await Listing.count({
+			const sellerTypes : ModelCountType | ListingSellerType[] = await Listing.count({
 				attributes: ['seller_type'],
 				group: ['seller_type']
 			});
 
-			const makeCount  = await Listing.count({
+			const listingDistributionByCarMake: ModelCountType | PercentageDistributionByMake[]  = await Listing.count({
 				attributes: ['make'],
 				group: ['make']
 			});
 
-			const contactedListingCount: ContactedListingsCountObect | ContactedListingsWithCount[]  = await Contact.count({
+			const contactedListingCount: ModelCountType| ContactedListingsWithCount[]  = await Contact.count({
 				attributes: ['listing_id'],
 				group: ['listing_id'],
 			});
 
 			report.contacts = contacts,
 			report.listings = listings;
-			console.log(sellerTypeCount);
-			console.log(makeCount);
-			getAvgListings(listings);
-			getMostcontactedListingsByMonth(contacts, listings);
-			getAvgPriceOfMostContactedListings(listings, contactedListingCount);
+			report.avgListingSellingPricePerSellerType = getAvgListingSellingPricePerSellerType(listings, sellerTypes);
+			report.percentageDistributionByMake = getPercentageDistributionOfListingsByCarMake(listingDistributionByCarMake);
+			report.topFiveMostcontactedListingsByMonth = getTopFiveMostcontactedListingsByMonth(contacts, listings);
+			report.avgPriceOfMostContactedListings = getAvgPriceOfMostContactedListings(listings, contactedListingCount);
 			return report;
 		}
 

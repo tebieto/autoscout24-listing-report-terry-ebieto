@@ -19,7 +19,7 @@ export const persistReport = async (req: Request, res: Response): Promise<void> 
 			const nextAction = () => {
 				persistContactsToDatabase(report, contactsCsv.path, res);
 			};
-			persistListingsToDatabase(report, listingsCsv.path, nextAction);
+			persistListingsToDatabase(report, listingsCsv.path, nextAction, res);
 		}else if(!contactsCsv) {
 			res.status(401).send('Contacts CSV(contacts.csv) is required');
 		} else if(!listingsCsv) {

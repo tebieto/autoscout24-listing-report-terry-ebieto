@@ -1,25 +1,26 @@
 import { gql } from 'apollo-server-express';
 
 export const reportTypeDefs = gql`
-
-    type Contact {
-        uuid: String,
-        listing_id: Int,
-        contact_date: String,
-        report_uuid: String,
-        createdAt: String!,
-        updatedAt: String!
+    type AverageListingSellingPricePerSellerType {
+        seller_type: String,
+        count: String, 
+        avg_price: String
+    }
+    type PercentageDistributionByMake{
+        make: String,
+        count: String,
+        percentage: String
     }
     type Listing {
-        uuid: String,
         id: Int,
         make: String,
         price: Int,
+        formatted_price: String,
+        formatted_mileage: String
         mileage: Int,
         seller_type: String,
         report_uuid: String,
-        createdAt: String!,
-        updatedAt: String!
+        occurence: Int
     }
     type Report {
         uuid: String,
@@ -27,15 +28,16 @@ export const reportTypeDefs = gql`
         listings_csv_name: String,
         contacts_csv_link: String,
         contacts_csv_name: String,
-        listings: [Listing],
-        avgListings:[Listing]
-        contacts: [Contact],
+        avgListingSellingPricePerSellerType: [AverageListingSellingPricePerSellerType],
+        percentageDistributionByMake: [PercentageDistributionByMake],
+        topFiveMostcontactedListingsByMonth: String,
+        avgPriceOfMostContactedListings: String
         createdAt: String!,
         updatedAt: String!
     }
     
     type Query {
         reports: [Report],
-        report(uuid: String): Report
+        report(uuid: String!): Report
     }
 `;

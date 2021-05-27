@@ -1,15 +1,7 @@
 import styled from 'styled-components';
 
-export const HomeContainer = styled.div`
-    table {
-        width: 100%;
-        th, td {
-            text-align: left;
-        }
-        th:last-child, td:last-child {
-            text-align: center;
-        }
-    }
+export const HomeStylesContainer = styled.div`
+    width: 100%;
     button {
         background-color: yellow;
         font-size: 20px;
