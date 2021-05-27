@@ -1,6 +1,7 @@
 import { DataTypes, Model, } from 'sequelize';
 import { ContactAttributes } from '../../../interfaces/contact';
 import { sequelize } from '../index';
+import {  v4 as uuid } from 'uuid';
 /**
  * Creating Contact Model which is passed to sequelize
  * And persisted to database
@@ -22,11 +23,13 @@ const Contact = sequelize.define<ContactModel>(
 			unique: true,
 		},
 		listing_id: {
+			unique: false,
 			allowNull: false,
 			type: DataTypes.INTEGER
 		},
 		report_uuid: {
 			allowNull: false,
+			unique: false,
 			type: DataTypes.UUID,
 			references: {
 				model: 'Reports',
@@ -39,5 +42,11 @@ const Contact = sequelize.define<ContactModel>(
 		},
 	}
 );
+
+Contact.beforeCreate(async (contact) => {
+	contact.uuid = await uuid();
+});
+
+
 
 export default Contact;

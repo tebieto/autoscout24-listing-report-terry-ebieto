@@ -16,6 +16,6 @@ const cred: Credential = {
 const config: Credentials = {
 	'development': cred,
 	'test': cred,
-	'production': cred
+	'production': { ...cred, database: process.env.PGDATABASE || '' }
 };
 export default config;
