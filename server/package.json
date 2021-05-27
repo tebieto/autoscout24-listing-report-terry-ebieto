@@ -13,7 +13,7 @@
     "test": "yarn jest --silent",
     "start-server": "yarn build && cd build && node .",
     "build-client": "cd ../client && yarn build",
-    "build": "yarn lint && tsc --project ./",
+    "build": "tsc --project ./",
     "lint": "eslint . --ext .ts --fix",
     "dev": "yarn test && yarn lint && ts-node-dev --respawn --pretty --transpile-only src/index.ts",
     "serve": "yarn build-client && yarn dev",
