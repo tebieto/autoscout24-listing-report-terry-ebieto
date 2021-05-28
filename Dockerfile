@@ -12,9 +12,7 @@ RUN cd client && yarn run build
 FROM node:14-alpine AS server-builder
 
 WORKDIR /app
-COPY ./server/package.json ./server/yarn.lock ./server/
 COPY ./server/tsconfig.json ./server/tsconfig.json ./server/
-RUN cd server && yarn install
 COPY ./server ./server
 RUN cd server && yarn build
 
@@ -22,8 +20,11 @@ RUN cd server && yarn build
 FROM node:14-alpine
 
 WORKDIR /app
+COPY ./server/package.json ./server/yarn.lock ./server/
+RUN cd server && yarn install
 COPY --from=client-builder /app/client/build ./client/build
 COPY --from=server-builder /app/server/build ./server/build
+USER postgres
 RUN mkdir -p /app/server/build/uploads/csv
 EXPOSE 5000
 

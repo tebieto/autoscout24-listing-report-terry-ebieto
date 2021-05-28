@@ -40,7 +40,7 @@ And generates four reports including
 * install docker locally or any remote provider
 * RUN docker-compose build
 * RUN docker-compose up -d test-app
-* default PORT is 5000, u can edit in docker-compose.yaml
+* default PORT is 5000, u can edit environment variables in docker-compose.yaml
 
 ## Run Tests
 * cd server
