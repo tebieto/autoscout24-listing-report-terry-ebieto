@@ -25,6 +25,10 @@ And generates four reports including
 * ORM: Sequelize
 * Container: Docker
 
+## Live Link
+* http://35.197.238.75/
+
+
 ## Run Locally
 * see .env.sample.dev for required environment variables
 * install npm, node and postgres locally
