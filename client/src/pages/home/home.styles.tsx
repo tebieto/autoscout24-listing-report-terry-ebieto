@@ -4,7 +4,6 @@ export const HomeStylesContainer = styled.div`
     width: 100%;
     button {
         background-color: yellow;
-        font-size: 20px;
         font-weight: bold;
         padding: 10px 20px;
         border: none;

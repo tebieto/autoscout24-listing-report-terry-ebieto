@@ -16,7 +16,7 @@ export const ReportsStylesContainer = styled.div`
      max-width: 100%;
      overflow: auto;
      button {
-         font-size: 12px;
+         font-size: 10px;
      }
     }
 `;
