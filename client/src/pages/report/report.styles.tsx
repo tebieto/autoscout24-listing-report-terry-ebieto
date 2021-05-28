@@ -15,7 +15,6 @@ export const ReportStylesContainer = styled.div`
         th, td {
             text-align: left;
         }
-        font-size: 20px;
         margin: 30px;
         @media screen and (max-width: 800px) {
            margin: 30px 0;
