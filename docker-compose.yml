@@ -1,7 +1,7 @@
 version: "2"
 services:
   listings-report:
-    image: tebieto/listings:v1.0.0
+    image: tebieto/autoscout24-listing-report:v1.0.0
     container_name: listings-report
     build:
       context: .
