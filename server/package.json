@@ -17,7 +17,8 @@
     "lint": "eslint . --ext .ts --fix",
     "dev": "yarn test && yarn lint && ts-node-dev --respawn --pretty --transpile-only src/index.ts",
     "serve": "yarn build-client && yarn dev",
-    "get-dependencies": "yarn install && cd ../client && yarn"
+    "client-install": "cd ../client && yarn install",
+    "dependencies": "yarn install && yarn client-install"
   },
   "dependencies": {
     "apollo-server-express": "^2.24.1",
