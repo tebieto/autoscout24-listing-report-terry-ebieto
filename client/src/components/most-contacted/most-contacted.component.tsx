@@ -15,7 +15,6 @@ const MostContacted = (props: MostContactedProps): JSX.Element => {
 				.sort((firsIndex, nextIndex) => parseFloat(firsIndex) > parseFloat(nextIndex) ? 1 : -1)
 				.map((month, key) => {
 					const monthlyListings = topFiveMostcontactedListingsByMonth[month];
-					console.log({ monthlyListings });
 					return <div key={key}>
 						<div >Month: {month}</div>
 						{

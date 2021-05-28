@@ -25,21 +25,21 @@ And generates four reports including
 * ORM: Sequelize
 * Container: Docker
 
-## Clone to Local Directory
-* git clone https://github.com/tebieto/listing-report-terry-ebieto.git
-
 ## Run Locally
 * see .env.sample.dev for required environment variables
 * install npm, node and postgres locally
 * cd /server
 * RUN yarn dependencies
 * RUN yarn serve
+* This will run builds, tests and linters
 * if you do not want to make local installations, run in container instead
 
 ## Run In Container(DOCKER)
 * install docker locally or any remote provider
 * RUN docker-compose build
+* RUN docker-compose up -d test-db
 * RUN docker-compose up -d test-app
+* Order is important
 * default PORT is 5000, u can edit environment variables in docker-compose.yaml
 
 ## Run Tests
