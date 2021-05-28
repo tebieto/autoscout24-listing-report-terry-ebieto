@@ -1,8 +1,8 @@
 version: "2"
 services:
-  listings-report:
+  test-app:
     image: tebieto/autoscout24-listing-report:v1.0.0
-    container_name: listings-report
+    container_name: test-app
     build:
       context: .
     ports:
@@ -10,11 +10,10 @@ services:
     environment:
       - SYNC=yes
       - PORT=5000
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
-      - PGDATABASE=testdb
-      - PGDATABASEPROD=
-      - PGHOST=listings-db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - PGDATABASE=autoscout24
+      - PGHOST=test-db
       - NODE_ENV=development
     volumes:
       - ./server/build/uploads/csv:/app/server/build/uploads/csv
@@ -26,10 +25,10 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=test-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=autoscout24
     volumes:
-      - listings-data:/var/lib/postgresql/data
+      - test-data:/var/lib/postgresql/pg
 volumes:
-  listings-data:
+  test-data:
