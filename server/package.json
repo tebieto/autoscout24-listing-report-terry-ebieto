@@ -15,8 +15,8 @@
     "build-client": "cd ../client && yarn build",
     "build": "tsc --project ./",
     "lint": "eslint . --ext .ts --fix",
-    "dev": "yarn test && yarn lint && ts-node-dev --respawn --pretty --transpile-only src/index.ts",
-    "serve": "yarn build-client && yarn dev",
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
+    "serve": "yarn build-client && yarn test && yarn lint && yarn dev",
     "client-install": "cd ../client && yarn install",
     "dependencies": "yarn install && yarn client-install"
   },
