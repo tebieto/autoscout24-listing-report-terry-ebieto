@@ -30,8 +30,10 @@ And generates four reports including
 
 
 ## Run Locally
-* see .env.sample.dev for required environment variables
 * install npm, node and postgres locally
+* mkdir /server/src/uploads/csv
+* touch /server/.env
+* see .env.sample.dev for required environment variables
 * cd /server
 * RUN yarn dependencies
 * RUN yarn serve
